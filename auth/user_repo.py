@@ -1,4 +1,4 @@
-from auth.model import User
+from .model import User
 
 
 class UserRepo:
@@ -21,13 +21,14 @@ class UserRepo:
         return []
 
     def update_by_username(self, username: str, password: str) -> User:
-        user = User.Objects.get(username=username)
+        # user = User(username=username, password=password)
+        user = User.objects.get(username=username)
         if user:
             user.password = password
             user.save()
         return user
 
     def delete_by_username(self, username: str) -> None:
-        user = User.Objects.get(username=username)
+        user = User.objects.get(username=username)
         if user:
             user.delete()
