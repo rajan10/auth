@@ -60,10 +60,12 @@ def login_required(func: callable):
     ):  # this is the actual decorated function that will  replace the original function when
         # 'authorization_required' is appled eg hello_world or def login()
         try:  # token extraction and validation
-            authorization_header = request.headers.get("Authorization")
+            authorization_header = request.headers.get(
+                "Authorization"
+            )  # extracts the Authorization header from HTTP request
             if not authorization_header or not authorization_header.startswith(
                 "Bearer "
-            ):
+            ):  # checks 2 or condition if the header is NOT present or if the header is not a Bearer token
                 return make_response(
                     jsonify({"message": "Missing Authorization Header"}), 400
                 )
