@@ -16,7 +16,7 @@ from settings import SECRET_KEY
 auth_blueprint = Blueprint("auth_blueprint", __name__)
 
 
-@auth_blueprint.route("/auth", methods=["POST"])
+@auth_blueprint.route("/login", methods=["POST"])
 def user_auth():
     auth_header = request.headers.get("Authorization")  # 'Basic SGVtOkhlbSE='
     encoded_credential = auth_header.split(" ")[1]

@@ -3,7 +3,7 @@ from auth.urls import auth_blueprint
 from database import db
 from exceptions import APIError
 
-from .settings import DB_NAME, DB_HOST
+from settings import DB_NAME, DB_HOST
 
 app = Flask(__name__)
 app.register_blueprint(auth_blueprint)
