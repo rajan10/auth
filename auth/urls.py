@@ -11,6 +11,7 @@ from auth.schemas import (
 from pydantic import ValidationError
 from exceptions import APIError
 from .utils import encrypt_string, compare_password, generate_jwt, login_required
+from settings import SECRET_KEY
 
 auth_blueprint = Blueprint("auth_blueprint", __name__)
 
@@ -30,7 +31,9 @@ def user_auth():
     result = compare_password(user_password=password, db_password=user.password)
     if not result:
         return make_response(jsonify({"message": "Incorrect password"}), 401)
-    access_token = generate_jwt(username=user.username, secret_key="test")  #eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGVtIiwiaWF0IjoxNzA0OTQ1NjY1LCJleHAiOjE3MDUwMzIwNjV9.BiNv--5VPDg5M9o3LpKg3tE8xq_aCFYztCvOxXlGb4A"  for Hem
+    access_token = generate_jwt(
+        username=user.username, secret_key=SECRET_KEY
+    )  # eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGVtIiwiaWF0IjoxNzA0OTQ1NjY1LCJleHAiOjE3MDUwMzIwNjV9.BiNv--5VPDg5M9o3LpKg3tE8xq_aCFYztCvOxXlGb4A"  for Hem
     response = make_response(
         jsonify(
             {"message": "Successfully authenticated!", "access_token": access_token}

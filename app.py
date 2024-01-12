@@ -3,12 +3,12 @@ from auth.urls import auth_blueprint
 from database import db
 from exceptions import APIError
 
+from .settings import SECRET_KEY, DB_NAME, DB_HOST
+
 app = Flask(__name__)
 app.register_blueprint(auth_blueprint)
 
-app.config["MONGODB_SETTINGS"] = [
-    {"db": "auth-api", "host": "localhost", "port": 27017}
-]
+app.config["MONGODB_SETTINGS"] = [{"db": DB_NAME, "host": DB_HOST}]
 db.init_app(app)
 
 

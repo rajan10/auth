@@ -4,6 +4,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify, make_response
 from jwt import InvalidTokenError, ExpiredSignatureError
+from settings import SECRET_KEY
 
 
 def encrypt_string(string: str) -> str:
@@ -73,7 +74,9 @@ def login_required(func: callable):
             access_token = request.headers["Authorization"].split(" ")[
                 1
             ]  # Basic Sm9objpKb2huIQ==
-            decoded_payload = jwt.decode(access_token, "test", algorithms=["HS256"])
+            decoded_payload = jwt.decode(
+                access_token, key=SECRET_KEY, algorithms=["HS256"]
+            )
             if not decoded_payload:
                 return make_response(
                     jsonify({"message": "Incorrect access token"}), 400
