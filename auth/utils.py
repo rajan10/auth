@@ -42,7 +42,7 @@ def compare_password(user_password: str, db_password: str) -> bool:
 
 def generate_jwt(username, secret_key):
     issued_at = datetime.utcnow()
-    expiration_time = issued_at + timedelta(days=1)
+    expiration_time = issued_at + timedelta(days=365)
     payload = {
         "user": f"{username}",
         "iat": issued_at,
