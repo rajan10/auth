@@ -1,0 +1,10 @@
+# this is a docker-compose file for running the web app
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
